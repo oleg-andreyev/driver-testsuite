@@ -116,7 +116,7 @@ final class EventsTest extends TestCase
 
     public static function provideKeyboardEventsModifiers(): iterable
     {
-        return array(
+        $data = array(
             'none-keyDown' => array('keyDown', 'u', 85, null, '0 / 0 / 0 / 0'),
             'none-keyPress' => array('keyPress', 'b', 98, null, '0 / 0 / 0 / 0'),
             /**
@@ -129,14 +129,11 @@ final class EventsTest extends TestCase
              */
             'none-keyUp' => array('keyUp', 110, 78, null, '0 / 0 / 0 / 0'), // 110 = n  78 = N
 
-            'alt-keyDown' => array('keyDown', 'u', 85, 'alt', '1 / 0 / 0 / 0'),
-            'alt-keyPress' => array('keyPress', 'b', 98, 'alt', '1 / 0 / 0 / 0'),
             // see explanation from above why sending 110 but expecting 78
             'alt-keyUp' => array('keyUp', 110, 78, 'alt', '1 / 0 / 0 / 0'),
 
             // jQuery considers ctrl as being a metaKey in the normalized event
             'ctrl-keyDown' => array('keyDown', 'u', 85, 'ctrl', '0 / 1 / 0 / 1'),
-            'ctrl-keyPress' => array('keyPress', 'b', 98, 'ctrl', '0 / 1 / 0 / 1'), // do not use "r" because it will trigger page reload in firefox
             // see explanation from above why sending 110 but expecting 78
             'ctrl-keyUp' => array('keyUp', 110, 78, 'ctrl', '0 / 1 / 0 / 1'),
 
@@ -150,5 +147,16 @@ final class EventsTest extends TestCase
             // see explanation from above why sending 110 but expecting 78
             'meta-keyUp' => array('keyUp', 110, 78, 'meta', '0 / 0 / 0 / 1'),
         );
+
+        // https://bugs.chromium.org/p/chromium/issues/detail?id=13891#c16
+        // Control + <char> will not trigger keypress
+        // Option + <char> will output different results "special char" ©
+        if (PHP_OS !== 'Darwin') {
+            $data['alt-keyDown'] = array('keyDown', 'u', 85, 'alt', '1 / 0 / 0 / 0');
+            $data['alt-keyPress'] = array('keyPress', 'b', 98, 'alt', '1 / 0 / 0 / 0');
+            $data['ctrl-keyPress'] = array('keyPress', 'b', 98, 'ctrl', '0 / 1 / 0 / 1'); // do not use "r" because it will trigger page reload in firefox
+        }
+
+        return $data;
     }
 }
