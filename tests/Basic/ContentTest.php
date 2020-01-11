@@ -56,6 +56,15 @@ final class ContentTest extends TestCase
         ];
     }
 
+    public function testJson()
+    {
+        $this->getSession()->visit($this->pathTo('/json.php'));
+        $this->assertStringContainsString(
+            '{"key1":"val1","key2":234,"key3":[1,2,3]}',
+            $this->getSession()->getPage()->getContent()
+        );
+    }
+
     public function testHtmlDecodingNotPerformed(): void
     {
         $session = $this->getSession();

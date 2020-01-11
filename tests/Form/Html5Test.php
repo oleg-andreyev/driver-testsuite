@@ -116,14 +116,18 @@ OUT;
         $page->pressButton('Submit');
 
         $out = <<<'OUT'
+array(
+  agreement = `off`,
   color = `#ff00aa`,
-  date = `1111-11-11`,
+  date = `2014-12-05`,
   email = `mink@example.org`,
   number = `6`,
   search = `mink`,
   submit_button = `Submit`,
   time = `14:12`,
   url = `https://mink.behat.org/`,
+)
+no file
 OUT;
 
         $this->assertStringContainsString($out, $page->getContent());
