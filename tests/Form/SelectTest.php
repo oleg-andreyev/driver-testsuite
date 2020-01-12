@@ -46,6 +46,10 @@ final class SelectTest extends TestCase
         $this->assertNotNull($button);
         $button->press();
 
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
+
         $out = <<<'OUT'
   agreement = `off`,
   select_first_option_is_selected_by_default = `1`,
