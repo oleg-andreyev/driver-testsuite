@@ -129,6 +129,10 @@ final class GeneralTest extends TestCase
         $search->setValue('some#query');
         $page->pressButton('Find');
 
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
+
         $div = $webAssert->elementExists('css', 'div');
         $this->assertEquals('some#query', $div->getText());
     }
@@ -142,6 +146,10 @@ final class GeneralTest extends TestCase
         $page->fillField('last_name', 'zet');
 
         $page->pressButton('Register');
+
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
 
         $this->assertStringContainsString('no file', $page->getContent());
 
@@ -203,7 +211,11 @@ final class GeneralTest extends TestCase
 
         $button->press();
 
-        if ($this->safePageWait(5000, 'document.getElementsByTagName("title") === "Advanced form save"')) {
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
+
+        if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $out = <<<'OUT'
 array(
   agreement = `on`,
@@ -243,6 +255,10 @@ OUT;
         $this->assertEquals('Bar', $lastname->getValue());
 
         $button->press();
+
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
 
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $out = <<<'OUT'
@@ -297,6 +313,10 @@ OUT;
         $this->assertNotNull($button);
         $button->press();
 
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
+
         $out = <<<'OUT'
   tags = array(
     0 = `tag2`,
@@ -315,6 +335,10 @@ OUT;
         $button = $page->findButton('Login');
         $this->assertNotNull($button);
         $button->press();
+
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
 
         $toSearch = [
             'agreement = `off`,',
@@ -335,6 +359,10 @@ OUT;
         $page = $this->getSession()->getPage();
 
         $page->pressButton('Save');
+
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
 
         $toSearch = [
             'textarea = ``,',

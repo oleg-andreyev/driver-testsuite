@@ -24,6 +24,10 @@ final class Html5Test extends TestCase
 
         $page->pressButton('Submit in form');
 
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
+
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $out = <<<'OUT'
   first_name = `John`,
@@ -52,6 +56,10 @@ OUT;
 
         $page->pressButton('Submit in form');
 
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
+
         $out = <<<'OUT'
   sex = `m`,
 OUT;
@@ -72,6 +80,10 @@ OUT;
 
         $page->pressButton('Submit outside form');
 
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
+
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $out = <<<'OUT'
   first_name = `John`,
@@ -90,6 +102,10 @@ OUT;
         $page->fillField('other_field', 'hello');
 
         $page->pressButton('Submit separate form');
+
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
 
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $out = <<<'OUT'
@@ -114,6 +130,10 @@ OUT;
         $page->fillField('color', '#ff00aa');
 
         $page->pressButton('Submit');
+
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
 
         $out = <<<'OUT'
 array(
@@ -141,6 +161,10 @@ OUT;
         $page->fillField('first_name', 'Jimmy');
         $page->pressButton('Submit to basic form');
 
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
+
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $this->assertStringContainsString('<title>Basic Form Saving</title>', $page->getContent());
             $this->assertStringContainsString('Firstname: Jimmy', $page->getContent());
@@ -155,6 +179,10 @@ OUT;
         $page->fillField('first_name', 'Jimmy');
         $page->fillField('last_name', 'Jones');
         $page->pressButton('Submit as GET');
+
+        // usleep is required for firefox
+        // firefox does not wait for page load as chrome as we may get StaleElementReferenceException
+        usleep(500000);
 
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $this->assertEquals(
