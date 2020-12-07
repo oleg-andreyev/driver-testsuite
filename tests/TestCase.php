@@ -39,6 +39,30 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * Inherited from SetUpTearDownTrait
+     */
+    protected function doSetUp()
+    {
+        if (null !== $message = self::getConfig()->skipMessage(get_class($this), $this->getName(false))) {
+            self::markTestSkipped($message);
+        }
+
+        parent::setUp();
+    }
+
+    /**
+     * Inherited from SetUpTearDownTrait
+     */
+    private function doTearDown()
+    {
+        if (null !== self::$mink) {
+            self::$mink->resetSessions();
+        }
+
+        parent::tearDown();
+    }
+
+    /**
      * @return AbstractConfig
      *
      * @throws \UnexpectedValueException if the global driver_config_factory returns an invalid object
