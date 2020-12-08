@@ -4,6 +4,7 @@ namespace Behat\Mink\Tests\Driver\Form;
 
 use Behat\Mink\Exception\DriverException;
 use Behat\Mink\Tests\Driver\TestCase;
+use Symfony\Bridge\PhpUnit\SetUpTearDownTrait;
 
 final class RadioTest extends TestCase
 {

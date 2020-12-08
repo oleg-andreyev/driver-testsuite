@@ -33,6 +33,7 @@ final class Html5Test extends TestCase
   first_name = `John`,
   last_name = `Doe`,
 OUT;
+            $out = str_replace(["\r", "\r\n", "\n"], \PHP_EOL, $out);
             $this->assertStringContainsString($out, $page->getContent());
             $this->assertStringNotContainsString('other_field', $page->getContent());
         }
@@ -90,6 +91,7 @@ OUT;
   last_name = `Doe`,
   submit_button = `test`,
 OUT;
+            $out = str_replace(["\r", "\r\n", "\n"], \PHP_EOL, $out);
             $this->assertStringContainsString($out, $page->getContent());
         }
     }
@@ -149,7 +151,7 @@ array(
 )
 no file
 OUT;
-
+        $out = str_replace(["\r", "\r\n", "\n"], \PHP_EOL, $out);
         $this->assertStringContainsString($out, $page->getContent());
     }
 
