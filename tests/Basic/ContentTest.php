@@ -8,15 +8,18 @@ class ContentTest extends TestCase
 {
     public function testOuterHtml()
     {
-        $this->getSession()->visit($this->pathTo('/index.html'));
+        $this->getSession()->visit($this->pathTo('/outer-html.html'));
 
         $element = $this->getAssertSession()->elementExists('css', '.travers');
 
         $this->assertEquals(
-            "<div class=\"travers\">\n            <div class=\"sub\">el1</div>\n".
-            "            <div class=\"sub\">el2</div>\n            <div class=\"sub\">\n".
-            "                <a href=\"some_url\">some <strong>deep</strong> url</a>\n".
-            "            </div>\n        </div>",
+            "<div class=\"travers\">
+    <div class=\"sub\">el1</div>
+    <div class=\"sub\">el2</div>
+    <div class=\"sub\">
+        <a href=\"some_url\">some <strong>deep</strong> url</a>
+    </div>
+</div>",
             $element->getOuterHtml()
         );
     }
