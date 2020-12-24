@@ -8,7 +8,10 @@ class ContentTest extends TestCase
 {
     public function testOuterHtml()
     {
-        $this->getSession()->visit($this->pathTo('/outer-html.html'));
+        $session = $this->getSession();
+        $session->getDriver()->setTimeouts(array('implicit' => 0, 'pageLoad' => 300000, 'script' => 30000));
+
+        $session->visit($this->pathTo('/outer-html.html'));
 
         $element = $this->getAssertSession()->elementExists('css', '.travers');
 
