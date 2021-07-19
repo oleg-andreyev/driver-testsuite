@@ -22,7 +22,6 @@ class BasicAuthTest extends TestCase
         $this->assertStringContainsString($pageText, $session->getPage()->getContent());
     }
 
-    /** @psalm-return \Generator<int, array{0: string, 1: string, 2: string}, mixed, void> */
     public function setBasicAuthDataProvider(): \Generator
     {
         yield ['mink-user', 'mink-password', 'is authenticated'];
