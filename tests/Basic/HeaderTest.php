@@ -71,6 +71,7 @@ class HeaderTest extends TestCase
     {
         $this->getSession()->visit($this->pathTo('/response_headers.php'));
 
+        /** @psalm-var array<string, string> */
         $headers = $this->getSession()->getResponseHeaders();
 
         $lowercasedHeaders = array();

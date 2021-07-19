@@ -40,13 +40,15 @@ abstract class AbstractConfig
      *
      * @return string
      */
-    public function getWebFixturesUrl()
+    public function getWebFixturesUrl(): string
     {
-        if (!isset($_SERVER['WEB_FIXTURES_HOST'])) {
+        $webFixturesHost = (string) ($_SERVER['WEB_FIXTURES_HOST'] ?? '');
+
+        if ($webFixturesHost === '') {
             return 'http://localhost:8002'; // Host used by default by mink-test-server
         }
 
-        return $_SERVER['WEB_FIXTURES_HOST'];
+        return $webFixturesHost;
     }
 
     /**

@@ -87,6 +87,7 @@ class GeneralTest extends TestCase
         }
     }
 
+    /** @psalm-return \Generator<int, array{0: string}, mixed, void> */
     public function formSubmitWaysDataProvider(): \Generator
     {
         yield ['Save'];

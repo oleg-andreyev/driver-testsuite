@@ -164,6 +164,7 @@ class ChangeEventTest extends TestCase
         $this->assertElementChangeCount('the-checked-checkbox');
     }
 
+    /** @psalm-return \Generator<int, array{0: bool}, mixed, void> */
     public function checkboxTestWayDataProvider(): \Generator
     {
         yield [true];
