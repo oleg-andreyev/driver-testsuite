@@ -12,8 +12,11 @@ use Symfony\Component\HttpKernel\HttpKernelInterface;
 
 class FixturesKernel implements HttpKernelInterface
 {
-    public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true)
-    {
+    public function handle(
+        Request $request,
+        $type = 1/*HttpKernelInterface::MASTER_REQUEST or MAIN_REQUEST*/,
+        $catch = true
+    ) {
         $this->prepareSession($request);
 
         $response = $this->handleFixtureRequest($request);
@@ -62,7 +65,7 @@ class FixturesKernel implements HttpKernelInterface
 
         $cookies = $request->cookies;
 
-        $sessionName = (string) $session->getName();
+        $sessionName = $session->getName();
         if ($cookies->has($sessionName)) {
             $id = (string) $cookies->get($sessionName);
             $session->setId($id);
@@ -74,13 +77,13 @@ class FixturesKernel implements HttpKernelInterface
     private function saveSession(Request $request, Response $response): void
     {
         $session = $request->getSession();
-        if ($session && $session->isStarted()) {
+        if ($session->isStarted()) {
             $session->save();
 
             $params = session_get_cookie_params();
 
             $cookie = new Cookie(
-                (string) $session->getName(),
+                $session->getName(),
                 $session->getId(),
                 $params['lifetime'] === 0 ? 0 : (time() + (int) $params['lifetime']),
                 (string) $params['path'],

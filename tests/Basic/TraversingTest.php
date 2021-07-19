@@ -2,6 +2,7 @@
 
 namespace Behat\Mink\Tests\Driver\Basic;
 
+use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Tests\Driver\TestCase;
 
 class TraversingTest extends TestCase
@@ -97,9 +98,11 @@ class TraversingTest extends TestCase
         $profileFormDivLabel = $profileFormDiv->find('css', 'label');
         $this->assertNotNull($profileFormDivLabel);
 
+        /** @psalm-var NodeElement|null $profileFormDivParent */
         $profileFormDivParent = $profileFormDivLabel->getParent();
         $this->assertNotNull($profileFormDivParent);
 
+        /** @psalm-var NodeElement|null $profileFormDivParent */
         $profileFormDivParent = $profileFormDivLabel->getParent();
         $this->assertNotNull($profileFormDivParent);
 
@@ -127,7 +130,7 @@ class TraversingTest extends TestCase
         $this->assertNotNull($subUrl);
 
         $attrValue = (string) $subUrl->getAttribute('href');
-        $this->assertRegExp('/some_url$/', $attrValue);
+        $this->assertMatchesRegularExpression('/some_url$/', $attrValue);
         $this->assertEquals('some deep url', $subUrl->getText());
         $this->assertEquals('some <strong>deep</strong> url', $subUrl->getHtml());
 

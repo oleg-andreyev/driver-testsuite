@@ -47,7 +47,7 @@ class NavigationTest extends TestCase
 
         $this->assertNotNull($link);
         $attrValue = (string) $link->getAttribute('href');
-        $this->assertRegExp('/redirector\.php$/', $attrValue);
+        $this->assertMatchesRegularExpression('/redirector\.php$/', $attrValue);
         $link->click();
 
         // usleep is required for firefox
@@ -62,7 +62,7 @@ class NavigationTest extends TestCase
 
         $this->assertNotNull($link);
         $attrValue = (string) $link->getAttribute('href');
-        $this->assertRegExp('/basic_form\.html$/', $attrValue);
+        $this->assertMatchesRegularExpression('/basic_form\.html$/', $attrValue);
         $link->click();
 
         // usleep is required for firefox
@@ -77,7 +77,7 @@ class NavigationTest extends TestCase
 
         $this->assertNotNull($link);
         $attrValue = (string) $link->getAttribute('href');
-        $this->assertRegExp('/links\.html\?quoted$/', $attrValue);
+        $this->assertMatchesRegularExpression('/links\.html\?quoted$/', $attrValue);
         $link->click();
 
         // usleep is required for firefox
@@ -95,7 +95,7 @@ class NavigationTest extends TestCase
 
         $this->assertNotNull($link);
         $attrValue = (string) $link->getAttribute('href');
-        $this->assertRegExp('/basic_form\.html$/', $attrValue);
+        $this->assertMatchesRegularExpression('/basic_form\.html$/', $attrValue);
         $link->click();
 
         $this->assertEquals($this->pathTo('/basic_form.html'), $this->getSession()->getCurrentUrl());
