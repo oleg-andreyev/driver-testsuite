@@ -24,7 +24,7 @@
         "behat/mink": "^1.8"
     },
     "require-dev": {
-        "symfony/http-kernel": "^2.8 | ^3.4 | ^4.4 | ^5.0 | ^5.4@dev",
+        "symfony/http-kernel": "^3.4 | ^4.4 | ^5.0 | ^5.4@dev",
         "php-webdriver/webdriver": "^1.11",
         "bamarni/composer-bin-plugin": "^1.4",
         "phpunit/phpunit": "^9.5",
