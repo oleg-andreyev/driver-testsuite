@@ -21,13 +21,16 @@
     ],
     "require": {
         "php": ">=7.2",
-        "behat/mink": "^1.8"
+        "behat/mink": "^1.8",
+        "ext-gd": "*"
     },
     "require-dev": {
         "symfony/http-kernel": "^2.7 | ^3.2 | ^4.0 | ^5.0 | ^6.0@dev",
         "phpunit/phpunit": "^8.2",
         "symfony/phpunit-bridge": "^5.2",
-        "vimeo/psalm": "^4.8"
+        "vimeo/psalm": "^4.8",
+        "psalm/plugin-phpunit": "^0.16.1",
+        "php-webdriver/webdriver": "^1.11"
     },
     "bin": [
         "bin/mink-test-server"

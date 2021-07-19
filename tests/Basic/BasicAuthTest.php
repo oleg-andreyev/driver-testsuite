@@ -8,8 +8,10 @@ class BasicAuthTest extends TestCase
 {
     /**
      * @dataProvider setBasicAuthDataProvider
+     *
+     * @return void
      */
-    public function testSetBasicAuth($user, $pass, $pageText)
+    public function testSetBasicAuth(string $user, string $pass, string $pageText): void
     {
         $session = $this->getSession();
 
@@ -20,15 +22,13 @@ class BasicAuthTest extends TestCase
         $this->assertStringContainsString($pageText, $session->getPage()->getContent());
     }
 
-    public function setBasicAuthDataProvider()
+    public function setBasicAuthDataProvider(): \Generator
     {
-        return array(
-            array('mink-user', 'mink-password', 'is authenticated'),
-            array('', '', 'is not authenticated'),
-        );
+        yield ['mink-user', 'mink-password', 'is authenticated'];
+        yield ['', '', 'is not authenticated'];
     }
 
-    public function testResetBasicAuth()
+    public function testResetBasicAuth(): void
     {
         $session = $this->getSession();
 
@@ -45,7 +45,7 @@ class BasicAuthTest extends TestCase
         $this->assertStringNotContainsString('PHP_AUTH_USER', $session->getPage()->getContent());
     }
 
-    public function testResetWithBasicAuth()
+    public function testResetWithBasicAuth(): void
     {
         $session = $this->getSession();
 

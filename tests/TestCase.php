@@ -2,9 +2,12 @@
 
 namespace Behat\Mink\Tests\Driver;
 
+use Behat\Mink\Driver\DriverInterface;
+use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\Mink\Mink;
 use Behat\Mink\Session;
+use Behat\Mink\Tests\Driver\Util\TestCaseInvalidStateException;
 use Behat\Mink\WebAssert;
 use Symfony\Bridge\PhpUnit\SetUpTearDownTrait;
 
@@ -83,12 +86,12 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * Returns session.
      *
-     * @return Session|null
+     * @return Session
      */
     protected function getSession()
     {
         if (!self::$mink) {
-            return null;
+            throw new TestCaseInvalidStateException('getSession was called before setUpBeforeClass');
         }
 
         return self::$mink->getSession('sess');
@@ -97,12 +100,12 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * Returns assert session.
      *
-     * @return WebAssert|null
+     * @return WebAssert
      */
     protected function getAssertSession()
     {
         if (!self::$mink) {
-            return null;
+            throw new TestCaseInvalidStateException('getSession was called before setUpBeforeClass');
         }
 
         return self::$mink->assertSession('sess');
@@ -111,9 +114,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
     /**
      * @param string $id
      *
-     * @return \Behat\Mink\Element\NodeElement
+     * @return NodeElement
      */
-    protected function findById($id)
+    protected function findById($id): NodeElement
     {
         return $this->getAssertSession()->elementExists('named', array('id', $id));
     }
@@ -124,9 +127,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      * This driver is not associated to a session. It is meant to be used for tests on the driver
      * implementation itself rather than test using the Mink API.
      *
-     * @return \Behat\Mink\Driver\DriverInterface
+     * @return DriverInterface
      */
-    protected function createDriver()
+    protected function createDriver(): DriverInterface
     {
         return self::getConfig()->createDriver();
     }

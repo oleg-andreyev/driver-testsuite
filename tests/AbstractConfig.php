@@ -22,12 +22,15 @@ abstract class AbstractConfig
      */
     public function mapRemoteFilePath($file)
     {
-        if (!isset($_SERVER['TEST_MACHINE_BASE_PATH']) || !isset($_SERVER['DRIVER_MACHINE_BASE_PATH'])) {
+        $testMachineBasePath = $_SERVER['TEST_MACHINE_BASE_PATH'] ?? '';
+        $driverMachineBasePath = $_SERVER['DRIVER_MACHINE_BASE_PATH'] ?? '';
+
+        if ($testMachineBasePath !== '' || $driverMachineBasePath !== '') {
             return $file;
         }
 
-        $pattern = '/^'.preg_quote($_SERVER['TEST_MACHINE_BASE_PATH'], '/').'/';
-        $basePath = $_SERVER['DRIVER_MACHINE_BASE_PATH'];
+        $pattern = '/^'.preg_quote($testMachineBasePath, '/').'/';
+        $basePath = $driverMachineBasePath;
 
         return preg_replace($pattern, $basePath, $file, 1);
     }
