@@ -11,9 +11,9 @@ final class ErrorHandlingTest extends TestCase
 {
     private const NOT_FOUND_XPATH = '//html/./invalid';
 
-    private const NOT_FOUND_EXCEPTION = 'Exception';
+    const NOT_FOUND_EXCEPTION = \Exception::class;
 
-    private const INVALID_EXCEPTION = 'Exception';
+    const INVALID_EXCEPTION = \Exception::class;
 
     public function testVisitErrorPage(): void
     {

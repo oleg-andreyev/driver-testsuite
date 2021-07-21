@@ -68,6 +68,8 @@ OUT;
 
     /**
      * @dataProvider elementSelectedStateCheckDataProvider
+     *
+     * @return void
      */
     public function testElementSelectedStateCheck(string $selectName, string $optionValue, string $optionText): void
     {
@@ -132,6 +134,8 @@ OUT;
 
     /**
      * @see https://github.com/Behat/Mink/issues/193
+     *
+     * @return void
      */
     public function testOptionWithoutValue(): void
     {
@@ -150,6 +154,8 @@ OUT;
 
     /**
      * @see https://github.com/Behat/Mink/issues/131
+     *
+     * @return void
      */
     public function testAccentuatedOption(): void
     {

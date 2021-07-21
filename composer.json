@@ -14,6 +14,10 @@
         {
             "name":      "Christophe Coevoet",
             "email":     "stof@notk.org"
+        },
+        {
+            "name": "Oleg Andreyev",
+            "email": "oleg@andreyev.lv"
         }
     ],
 
@@ -27,6 +31,7 @@
         "yoast/phpunit-polyfills": "^1.0"
     },
     "require-dev": {
+        "php-webdriver/webdriver": "^1.11",
         "phpstan/phpstan": "^1.10",
         "phpstan/phpstan-phpunit": "^1.3",
         "phpstan/phpstan-symfony": "^1.3",

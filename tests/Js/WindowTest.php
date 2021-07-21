@@ -54,8 +54,7 @@ final class WindowTest extends TestCase
         $page = $session->getPage();
 
         $windowName = $this->getSession()->getWindowName();
-
-        $this->assertNotNull($windowName);
+        $this->assertNotEmpty($windowName);
 
         $page->clickLink('Popup #1');
         $page->clickLink('Popup #2');

@@ -57,6 +57,8 @@ final class GeneralTest extends TestCase
 
     /**
      * @dataProvider formSubmitWaysDataProvider
+     *
+     * @return void
      */
     public function testFormSubmitWays(string $submitVia): void
     {

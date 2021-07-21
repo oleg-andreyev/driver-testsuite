@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
@@ -28,6 +29,7 @@ class FixturesKernel implements HttpKernelInterface
         $fixturesDir = realpath(__DIR__ . '/../web-fixtures');
         $overwriteDir = realpath(__DIR__ . '/../http-kernel-fixtures');
 
+        /** @psalm-suppress UnresolvableInclude */
         require_once $fixturesDir . '/utils.php';
 
         $file = $request->getPathInfo();
@@ -38,16 +40,18 @@ class FixturesKernel implements HttpKernelInterface
         $resp = null;
 
         ob_start();
+        /** @psalm-suppress UnresolvableInclude */
         require $path;
         $content = ob_get_clean();
         \assert($content !== false);
 
-        if ($resp instanceof Response) {
-            if ('' === $resp->getContent()) {
-                $resp->setContent($content);
+        /** @psalm-suppress TypeDoesNotContainType */
+        if ($response instanceof Response) {
+            if ('' === $response->getContent()) {
+                $response->setContent($content);
             }
 
-            return $resp;
+            return $response;
         }
 
         return new Response($content);
@@ -60,8 +64,10 @@ class FixturesKernel implements HttpKernelInterface
 
         $cookies = $request->cookies;
 
-        if ($cookies->has($session->getName())) {
-            $session->setId($cookies->get($session->getName()));
+        $sessionName = $session->getName();
+        if ($cookies->has($sessionName)) {
+            $id = (string) $cookies->get($sessionName);
+            $session->setId($id);
         } else {
             $session->migrate(false);
         }

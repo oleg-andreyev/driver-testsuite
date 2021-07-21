@@ -8,6 +8,8 @@ final class BasicAuthTest extends TestCase
 {
     /**
      * @dataProvider setBasicAuthDataProvider
+     *
+     * @return void
      */
     public function testSetBasicAuth(string $user, string $pass, string $pageText): void
     {
@@ -20,12 +22,11 @@ final class BasicAuthTest extends TestCase
         $this->assertStringContainsString($pageText, $session->getPage()->getContent());
     }
 
-    public static function setBasicAuthDataProvider(): iterable
+    /** @psalm-return \Generator<int, array{0: string, 1: string, 2: string}, mixed, void> */
+    public static function setBasicAuthDataProvider(): \Generator
     {
-        return [
-            ['mink-user', 'mink-password', 'is authenticated'],
-            ['', '', 'is not authenticated'],
-        ];
+        yield ['mink-user', 'mink-password', 'is authenticated'];
+        yield ['', '', 'is not authenticated'];
     }
 
     public function testBasicAuthInUrl(): void

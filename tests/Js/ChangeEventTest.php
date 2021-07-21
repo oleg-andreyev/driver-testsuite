@@ -13,6 +13,8 @@ final class ChangeEventTest extends TestCase
      * 'change' event should be fired after selecting an <option> in a <select>.
      *
      * TODO check whether this test is redundant with other change event tests.
+     *
+     * @return void
      */
     public function testIssue255(): void
     {
@@ -36,7 +38,10 @@ final class ChangeEventTest extends TestCase
 
     /**
      * @dataProvider setValueChangeEventDataProvider
+     *
      * @group change-event-detector
+     *
+     * @return void
      */
     public function testSetValueChangeEvent(string $elementId, string $valueForEmpty, string $valueForFilled = ''): void
     {
@@ -81,7 +86,10 @@ final class ChangeEventTest extends TestCase
 
     /**
      * @dataProvider selectOptionChangeEventDataProvider
+     *
      * @group change-event-detector
+     *
+     * @return void
      */
     public function testSelectOptionChangeEvent(string $elementId, string $elementValue): void
     {
@@ -105,7 +113,10 @@ final class ChangeEventTest extends TestCase
 
     /**
      * @dataProvider checkboxTestWayDataProvider
+     *
      * @group change-event-detector
+     *
+     * @return void
      */
     public function testCheckChangeEvent(bool $useSetValue): void
     {
@@ -126,7 +137,10 @@ final class ChangeEventTest extends TestCase
 
     /**
      * @dataProvider checkboxTestWayDataProvider
+     *
      * @group change-event-detector
+     *
+     * @return void
      */
     public function testUncheckChangeEvent(bool $useSetValue): void
     {

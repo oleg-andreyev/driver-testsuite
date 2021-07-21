@@ -2,10 +2,12 @@
 
 namespace Behat\Mink\Tests\Driver;
 
+use Behat\Mink\Driver\DriverInterface;
 use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Exception\UnsupportedDriverActionException;
 use Behat\Mink\Mink;
 use Behat\Mink\Session;
+use Behat\Mink\Tests\Driver\Util\TestCaseInvalidStateException;
 use Behat\Mink\WebAssert;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
@@ -110,6 +112,10 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getSession()
     {
+        if (!self::$mink) {
+            throw new TestCaseInvalidStateException('getSession was called before setUpBeforeClass');
+        }
+
         return self::$mink->getSession('sess');
     }
 
@@ -120,6 +126,10 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getAssertSession()
     {
+        if (!self::$mink) {
+            throw new TestCaseInvalidStateException('getSession was called before setUpBeforeClass');
+        }
+
         return self::$mink->assertSession('sess');
     }
 
@@ -128,7 +138,7 @@ abstract class TestCase extends BaseTestCase
      *
      * @return NodeElement
      */
-    protected function findById($id)
+    protected function findById($id): NodeElement
     {
         return $this->getAssertSession()->elementExists('named', ['id', $id]);
     }
@@ -139,9 +149,9 @@ abstract class TestCase extends BaseTestCase
      * This driver is not associated to a session. It is meant to be used for tests on the driver
      * implementation itself rather than test using the Mink API.
      *
-     * @return \Behat\Mink\Driver\DriverInterface
+     * @return DriverInterface
      */
-    protected function createDriver()
+    protected function createDriver(): DriverInterface
     {
         return self::getConfig()->createDriver();
     }

@@ -35,6 +35,8 @@ final class ContentTest extends TestCase
 
     /**
      * @dataProvider getAttributeDataProvider
+     *
+     * @return void
      */
     public function testGetAttribute(string $attributeName, ?string $attributeValue): void
     {
@@ -46,7 +48,12 @@ final class ContentTest extends TestCase
         $this->assertSame($attributeValue, $element->getAttribute($attributeName));
     }
 
-    public static function getAttributeDataProvider(): iterable
+    /**
+     * @return (null|string)[][]
+     *
+     * @psalm-return array{0: array{0: 'with-value', 1: 'some-value'}, 1: array{0: 'without-value', 1: ''}, 2: array{0: 'with-empty-value', 1: ''}, 3: array{0: 'with-missing', 1: null}}
+     */
+    public static function getAttributeDataProvider(): array
     {
         return [
             ['with-value', 'some-value'],
@@ -56,7 +63,7 @@ final class ContentTest extends TestCase
         ];
     }
 
-    public function testJson()
+    public function testJson(): void
     {
         $this->getSession()->visit($this->pathTo('/json.php'));
         $this->assertStringContainsString(

@@ -10,6 +10,8 @@ final class HeaderTest extends TestCase
      * test referrer.
      *
      * @group issue130
+     *
+     * @return void
      */
     public function testIssue130(): void
     {
@@ -69,6 +71,7 @@ final class HeaderTest extends TestCase
     {
         $this->getSession()->visit($this->pathTo('/response_headers.php'));
 
+        /** @psalm-var array<string, string> */
         $headers = $this->getSession()->getResponseHeaders();
 
         $lowercasedHeaders = [];

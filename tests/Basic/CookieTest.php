@@ -10,6 +10,8 @@ final class CookieTest extends TestCase
      * test cookie decoding.
      *
      * @group issue140
+     *
+     * @return void
      */
     public function testIssue140(): void
     {
@@ -58,6 +60,8 @@ final class CookieTest extends TestCase
 
     /**
      * @dataProvider cookieWithPathsDataProvider
+     *
+     * @return void
      */
     public function testCookieWithPaths(string $cookieRemovalMode): void
     {
@@ -97,6 +101,8 @@ final class CookieTest extends TestCase
 
     /**
      * @dataProvider cookieWithPathsDataProvider
+     *
+     * @return void
      */
     public function testCookieInSubPath(string $cookieRemovalMode): void
     {

@@ -2,6 +2,7 @@
 
 namespace Behat\Mink\Tests\Driver\Basic;
 
+use Behat\Mink\Element\NodeElement;
 use Behat\Mink\Tests\Driver\TestCase;
 use Yoast\PHPUnitPolyfills\Polyfills\AssertionRenames;
 
@@ -13,6 +14,8 @@ final class TraversingTest extends TestCase
      * find by label.
      *
      * @group issue211
+     *
+     * @return void
      */
     public function testIssue211(): void
     {
@@ -98,10 +101,14 @@ final class TraversingTest extends TestCase
         $profileFormDivLabel = $profileFormDiv->find('css', 'label');
         $this->assertNotNull($profileFormDivLabel);
 
+        /** @psalm-var NodeElement|null $profileFormDivParent */
         $profileFormDivParent = $profileFormDivLabel->getParent();
         $this->assertNotNull($profileFormDivParent);
 
+        /** @psalm-var NodeElement|null $profileFormDivParent */
         $profileFormDivParent = $profileFormDivLabel->getParent();
+        $this->assertNotNull($profileFormDivParent);
+
         $this->assertEquals('something', $profileFormDivParent->getAttribute('data-custom'));
 
         $profileFormInput = $profileFormDivLabel->findField('user-name');

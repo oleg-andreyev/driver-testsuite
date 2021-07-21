@@ -8,6 +8,8 @@ final class JavascriptEvaluationTest extends TestCase
 {
     /**
      * Tests, that `wait` method returns check result after exit.
+     *
+     * @return void
      */
     public function testWaitReturnValue(): void
     {
@@ -42,6 +44,8 @@ final class JavascriptEvaluationTest extends TestCase
 
     /**
      * @dataProvider provideExecutedScript
+     *
+     * @return void
      */
     public function testExecuteScript(string $script): void
     {
@@ -69,6 +73,8 @@ final class JavascriptEvaluationTest extends TestCase
 
     /**
      * @dataProvider provideEvaluatedScript
+     *
+     * @return void
      */
     public function testEvaluateJavascript(string $script): void
     {

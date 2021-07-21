@@ -93,7 +93,7 @@ final class NavigationTest extends TestCase
         $this->assertEquals($this->pathTo('/links.html?quoted'), $session->getCurrentUrl());
     }
 
-    public function testBlockLevelElementInAnchor()
+    public function testBlockLevelElementInAnchor(): void
     {
         $this->getSession()->visit($this->pathTo('/links.html'));
         $page = $this->getSession()->getPage();
