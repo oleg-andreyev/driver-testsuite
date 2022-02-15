@@ -3,11 +3,9 @@
 namespace Behat\Mink\Tests\Driver\Basic;
 
 use Behat\Mink\Tests\Driver\TestCase;
-use Yoast\PHPUnitPolyfills\Polyfills\AssertionRenames;
 
 class TraversingTest extends TestCase
 {
-    use AssertionRenames;
 
     /**
      * find by label.
