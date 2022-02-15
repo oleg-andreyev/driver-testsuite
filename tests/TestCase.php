@@ -25,23 +25,15 @@ abstract class TestCase extends BaseTestCase
     private static $config;
 
 
-    /**
-     * @beforeClass
-     */
-    public static function prepareSession()
+    public static function setUpBeforeClass():void
     {
         if (null === self::$mink) {
             $session = new Session(self::getConfig()->createDriver());
             self::$mink = new Mink(array('sess' => $session));
         }
-
-        parent::setUpBeforeClass();
     }
 
-    /**
-     * Inherited from SetUpTearDownTrait
-     */
-    protected function doSetUp()
+    protected function setUp(): void
     {
         if (null !== $message = self::getConfig()->skipMessage(get_class($this), $this->getName(false))) {
             self::markTestSkipped($message);
@@ -50,10 +42,7 @@ abstract class TestCase extends BaseTestCase
         parent::setUp();
     }
 
-    /**
-     * Inherited from SetUpTearDownTrait
-     */
-    private function doTearDown()
+    protected function tearDown():void
     {
         if (null !== self::$mink) {
             self::$mink->resetSessions();

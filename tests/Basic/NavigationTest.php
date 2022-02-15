@@ -46,7 +46,7 @@ class NavigationTest extends TestCase
         $link = $page->findLink('Redirect me to');
 
         $this->assertNotNull($link);
-        $this->assertMatchesRegularExpression('/redirector\.php$/', $link->getAttribute('href'));
+        $this->assertRegExp('/redirector\.php$/', $link->getAttribute('href'));
         $link->click();
 
         // usleep is required for firefox
@@ -60,7 +60,7 @@ class NavigationTest extends TestCase
         $link = $page->findLink('basic form image');
 
         $this->assertNotNull($link);
-        $this->assertMatchesRegularExpression('/basic_form\.html$/', $link->getAttribute('href'));
+        $this->assertRegExp('/basic_form\.html$/', $link->getAttribute('href'));
         $link->click();
 
         // usleep is required for firefox
@@ -74,7 +74,7 @@ class NavigationTest extends TestCase
         $link = $page->findLink('Link with a ');
 
         $this->assertNotNull($link);
-        $this->assertMatchesRegularExpression('/links\.html\?quoted$/', $link->getAttribute('href'));
+        $this->assertRegExp('/links\.html\?quoted$/', $link->getAttribute('href'));
         $link->click();
 
         // usleep is required for firefox
