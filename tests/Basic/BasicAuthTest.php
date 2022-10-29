@@ -71,10 +71,18 @@ final class BasicAuthTest extends TestCase
 
         $this->assertStringContainsString('is authenticated', $session->getPage()->getContent());
 
-        $session->reset();
+        $session->stop();
 
-        $session->visit($this->pathTo('/headers.php'));
+        $url = $this->pathTo('/basic_auth.php');
+        $url = str_replace('://', '://mink-user:wrong@', $url);
+        $session->visit($url);
 
-        $this->assertStringNotContainsString('PHP_AUTH_USER', $session->getPage()->getContent());
+        if (getenv('BROWSER_NAME') === 'firefox') {
+            $this->expectException('Facebook\WebDriver\Exception\UnexpectedAlertOpenException');
+            $this->expectExceptionMessage('Dismissed user prompt dialog: This site is asking you to sign in.');
+        }
+
+        // chrome can access dom when alert/confirm/basic auth
+        $this->assertStringContainsString('<html><head></head><body></body></html>', $session->getPage()->getContent());
     }
 }
