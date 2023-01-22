@@ -31,6 +31,10 @@ final class BasicAuthTest extends TestCase
 
     public function testBasicAuthInUrl(): void
     {
+        if (getenv('BROWSER_NAME') === 'safari') {
+            $this->markTestSkipped('\Behat\Mink\Tests\Driver\Basic\BasicAuthTest::testBasicAuthInUrl is skipped due to Safari hangs');
+        }
+
         $session = $this->getSession();
 
         $url = $this->pathTo('/basic_auth.php');
