@@ -18,12 +18,12 @@ abstract class TestCase extends BaseTestCase
     /**
      * Mink session manager.
      *
-     * @var Mink
+     * @var Mink|null
      */
     private static $mink;
 
     /**
-     * @var AbstractConfig
+     * @var AbstractConfig|null
      */
     private static $config;
 
@@ -37,34 +37,10 @@ abstract class TestCase extends BaseTestCase
     {
         if (null === self::$mink) {
             $session = new Session(self::getConfig()->createDriver());
-            self::$mink = new Mink(array('sess' => $session));
+            self::$mink = new Mink(['sess' => $session]);
         }
 
         parent::setUpBeforeClass();
-    }
-
-    /**
-     * Inherited from SetUpTearDownTrait
-     */
-    protected function doSetUp()
-    {
-        if (null !== $message = self::getConfig()->skipMessage(get_class($this), $this->getName(false))) {
-            self::markTestSkipped($message);
-        }
-
-        parent::setUp();
-    }
-
-    /**
-     * Inherited from SetUpTearDownTrait
-     */
-    private function doTearDown()
-    {
-        if (null !== self::$mink) {
-            self::$mink->resetSessions();
-        }
-
-        parent::tearDown();
     }
 
     /**
@@ -153,7 +129,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function findById($id): NodeElement
     {
-        return $this->getAssertSession()->elementExists('named', array('id', $id));
+        return $this->getAssertSession()->elementExists('named', ['id', $id]);
     }
 
     /**
@@ -194,7 +170,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function pathTo($path)
     {
-        return rtrim(self::getConfig()->getWebFixturesUrl(), '/').'/'.ltrim($path, '/');
+        return rtrim(self::getConfig()->getWebFixturesUrl(), '/') . '/' . ltrim($path, '/');
     }
 
     /**

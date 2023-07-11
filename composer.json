@@ -30,7 +30,8 @@
     "require-dev": {
         "symfony/http-kernel": "^4.4 || ^5.0 || ^6.0",
         "roave/security-advisories": "dev-latest",
-        "bamarni/composer-bin-plugin": "^1.8"
+        "bamarni/composer-bin-plugin": "^1.8",
+        "php-webdriver/webdriver": "^1.14"
     },
     "conflict": {
         "symfony/http-foundation": "<4.4 || >=7",
