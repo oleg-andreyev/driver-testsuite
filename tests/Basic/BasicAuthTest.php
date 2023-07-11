@@ -3,8 +3,9 @@
 namespace Behat\Mink\Tests\Driver\Basic;
 
 use Behat\Mink\Tests\Driver\TestCase;
+use Facebook\WebDriver\Exception\UnexpectedAlertOpenException;
 
-class BasicAuthTest extends TestCase
+final class BasicAuthTest extends TestCase
 {
     /**
      * @dataProvider setBasicAuthDataProvider
@@ -20,7 +21,7 @@ class BasicAuthTest extends TestCase
     }
 
     /** @psalm-return \Generator<int, array{0: string, 1: string, 2: string}, mixed, void> */
-    public function setBasicAuthDataProvider(): \Generator
+    public static function setBasicAuthDataProvider(): \Generator
     {
         yield ['mink-user', 'mink-password', 'is authenticated'];
         yield ['', '', 'is not authenticated'];
@@ -57,7 +58,7 @@ class BasicAuthTest extends TestCase
         $session->visit($url);
 
         if (getenv('BROWSER_NAME') === 'firefox') {
-            $this->expectException('Facebook\WebDriver\Exception\UnexpectedAlertOpenException');
+            $this->expectException(UnexpectedAlertOpenException::class);
             $this->expectExceptionMessage('Dismissed user prompt dialog: This site is asking you to sign in.');
         }
 
