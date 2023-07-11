@@ -36,8 +36,8 @@ class FixturesKernel implements HttpKernelInterface
 
         $path = file_exists($overwriteDir . $file) ? $overwriteDir . $file : $fixturesDir . $file;
 
-        /** @var Response|null $resp */
-        $resp = null;
+        /** @var Response|null $response */
+        $response = null;
 
         ob_start();
         /** @psalm-suppress UnresolvableInclude */
