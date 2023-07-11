@@ -97,7 +97,9 @@ final class NavigationTest extends TestCase
         $link = $page->findLink('Link in a block element');
 
         $this->assertNotNull($link);
-        $this->assertRegExp('/basic_form\.html$/', $link->getAttribute('href'));
+        $href = $link->getAttribute('href');
+        $this->assertNotNull($href);
+        $this->assertMatchesRegularExpression('/basic_form.html/', $href);
         $link->click();
 
         $this->assertEquals($this->pathTo('/basic_form.html'), $this->getSession()->getCurrentUrl());
