@@ -8,8 +8,6 @@ final class HoverTest extends TestCase
 {
     /**
      * @group mouse-events
-     *
-     * @return void
      */
     public function testMouseOverHover(): void
     {
@@ -26,8 +24,6 @@ final class HoverTest extends TestCase
      * @group mouse-events
      *
      * @depends testMouseOverHover
-     *
-     * @return void
      */
     public function testClickHover(): void
     {
@@ -44,8 +40,6 @@ final class HoverTest extends TestCase
      * @group mouse-events
      *
      * @depends testMouseOverHover
-     *
-     * @return void
      */
     public function testDoubleClickHover(): void
     {
@@ -62,8 +56,6 @@ final class HoverTest extends TestCase
      * @group mouse-events
      *
      * @depends testMouseOverHover
-     *
-     * @return void
      */
     public function testRightClickHover(): void
     {

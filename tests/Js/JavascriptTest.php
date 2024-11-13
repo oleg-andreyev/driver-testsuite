@@ -6,7 +6,7 @@ use Behat\Mink\Tests\Driver\TestCase;
 
 final class JavascriptTest extends TestCase
 {
-    public function testAriaRoles():void
+    public function testAriaRoles(): void
     {
         $session = $this->getSession();
         $session->visit($this->pathTo('/aria_roles.html'));
@@ -24,7 +24,7 @@ final class JavascriptTest extends TestCase
         $this->assertEquals($this->pathTo('/index.html'), $session->getCurrentUrl());
     }
 
-    public function testDragDrop():void
+    public function testDragDrop(): void
     {
         $this->getSession()->visit($this->pathTo('/js_test.html'));
         $webAssert = $this->getAssertSession();
@@ -37,7 +37,7 @@ final class JavascriptTest extends TestCase
     }
 
     // https://github.com/minkphp/MinkSelenium2Driver/pull/359
-    public function testDragDropOntoHiddenItself():void
+    public function testDragDropOntoHiddenItself(): void
     {
         $this->getSession()->visit($this->pathTo('/js_test.html'));
         $webAssert = $this->getAssertSession();
@@ -50,7 +50,7 @@ final class JavascriptTest extends TestCase
     }
 
     // test accentuated char in button
-    public function testIssue225():void
+    public function testIssue225(): void
     {
         $this->getSession()->visit($this->pathTo('/issue225.html'));
         $this->getSession()->getPage()->pressButton('Créer un compte');

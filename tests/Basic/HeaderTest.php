@@ -10,8 +10,6 @@ final class HeaderTest extends TestCase
      * test referrer.
      *
      * @group issue130
-     *
-     * @return void
      */
     public function testIssue130(): void
     {

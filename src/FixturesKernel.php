@@ -6,7 +6,6 @@ use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 
@@ -26,15 +25,15 @@ class FixturesKernel implements HttpKernelInterface
 
     private function handleFixtureRequest(Request $request): Response
     {
-        $fixturesDir = realpath(__DIR__ . '/../web-fixtures');
-        $overwriteDir = realpath(__DIR__ . '/../http-kernel-fixtures');
+        $fixturesDir = realpath(__DIR__.'/../web-fixtures');
+        $overwriteDir = realpath(__DIR__.'/../http-kernel-fixtures');
 
         /** @psalm-suppress UnresolvableInclude */
-        require_once $fixturesDir . '/utils.php';
+        require_once $fixturesDir.'/utils.php';
 
         $file = $request->getPathInfo();
 
-        $path = file_exists($overwriteDir . $file) ? $overwriteDir . $file : $fixturesDir . $file;
+        $path = file_exists($overwriteDir.$file) ? $overwriteDir.$file : $fixturesDir.$file;
 
         /** @var Response|null $response */
         $response = null;
@@ -43,9 +42,9 @@ class FixturesKernel implements HttpKernelInterface
         /** @psalm-suppress UnresolvableInclude */
         require $path;
         $content = ob_get_clean();
-        \assert($content !== false);
+        \assert(false !== $content);
 
-        /** @psalm-suppress TypeDoesNotContainType */
+        /* @psalm-suppress TypeDoesNotContainType */
         if ($response instanceof Response) {
             if ('' === $response->getContent()) {
                 $response->setContent($content);

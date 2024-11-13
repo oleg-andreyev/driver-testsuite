@@ -13,9 +13,9 @@ final class ContentTest extends TestCase
         $element = $this->getAssertSession()->elementExists('css', '.travers');
 
         $this->assertEquals(
-            "<div class=\"travers\">\n            <div class=\"sub\">el1</div>\n" .
-            "            <div class=\"sub\">el2</div>\n            <div class=\"sub\">\n" .
-            "                <a href=\"some_url\">some <strong>deep</strong> url</a>\n" .
+            "<div class=\"travers\">\n            <div class=\"sub\">el1</div>\n".
+            "            <div class=\"sub\">el2</div>\n            <div class=\"sub\">\n".
+            "                <a href=\"some_url\">some <strong>deep</strong> url</a>\n".
             "            </div>\n        </div>",
             $element->getOuterHtml()
         );
@@ -35,21 +35,19 @@ final class ContentTest extends TestCase
 
     /**
      * @dataProvider getAttributeDataProvider
-     *
-     * @return void
      */
     public function testGetAttribute(string $attributeName, ?string $attributeValue): void
     {
         $this->getSession()->visit($this->pathTo('/index.html'));
 
-        $element = $this->getSession()->getPage()->findById('attr-elem[' . $attributeName . ']');
+        $element = $this->getSession()->getPage()->findById('attr-elem['.$attributeName.']');
 
         $this->assertNotNull($element);
         $this->assertSame($attributeValue, $element->getAttribute($attributeName));
     }
 
     /**
-     * @return (null|string)[][]
+     * @return (string|null)[][]
      *
      * @psalm-return array{0: array{0: 'with-value', 1: 'some-value'}, 1: array{0: 'without-value', 1: ''}, 2: array{0: 'with-empty-value', 1: ''}, 3: array{0: 'with-missing', 1: null}}
      */

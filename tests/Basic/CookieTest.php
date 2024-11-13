@@ -10,8 +10,6 @@ final class CookieTest extends TestCase
      * test cookie decoding.
      *
      * @group issue140
-     *
-     * @return void
      */
     public function testIssue140(): void
     {
@@ -60,8 +58,6 @@ final class CookieTest extends TestCase
 
     /**
      * @dataProvider cookieWithPathsDataProvider
-     *
-     * @return void
      */
     public function testCookieWithPaths(string $cookieRemovalMode): void
     {
@@ -80,9 +76,9 @@ final class CookieTest extends TestCase
         $session->visit($this->pathTo('/sub-folder/cookie_page2.php'));
         $this->assertStringContainsString('Previous cookie: srv_var_is_set_sub_folder', $session->getPage()->getText());
 
-        if ($cookieRemovalMode === 'session_reset') {
+        if ('session_reset' === $cookieRemovalMode) {
             $session->reset();
-        } elseif ($cookieRemovalMode === 'cookie_delete') {
+        } elseif ('cookie_delete' === $cookieRemovalMode) {
             $session->setCookie('srvr_cookie', null);
         }
 
@@ -91,6 +87,9 @@ final class CookieTest extends TestCase
         $this->assertStringContainsString('Previous cookie: NO', $session->getPage()->getText());
     }
 
+    /**
+     * @return iterable<array{string}>
+     */
     public static function cookieWithPathsDataProvider(): iterable
     {
         return [
@@ -101,8 +100,6 @@ final class CookieTest extends TestCase
 
     /**
      * @dataProvider cookieWithPathsDataProvider
-     *
-     * @return void
      */
     public function testCookieInSubPath(string $cookieRemovalMode): void
     {
@@ -118,9 +115,9 @@ final class CookieTest extends TestCase
         $session->visit($this->pathTo('/sub-folder/cookie_page2.php'));
         $this->assertStringContainsString('Previous cookie: srv_var_is_set', $session->getPage()->getText());
 
-        if ($cookieRemovalMode === 'session_reset') {
+        if ('session_reset' === $cookieRemovalMode) {
             $session->reset();
-        } elseif ($cookieRemovalMode === 'cookie_delete') {
+        } elseif ('cookie_delete' === $cookieRemovalMode) {
             $session->setCookie('srvr_cookie', null);
         }
 

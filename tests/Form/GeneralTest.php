@@ -57,8 +57,6 @@ final class GeneralTest extends TestCase
 
     /**
      * @dataProvider formSubmitWaysDataProvider
-     *
-     * @return void
      */
     public function testFormSubmitWays(string $submitVia): void
     {
@@ -79,6 +77,9 @@ final class GeneralTest extends TestCase
         }
     }
 
+    /**
+     * @return iterable<array{string}>
+     */
     public static function formSubmitWaysDataProvider(): iterable
     {
         return [
@@ -199,7 +200,7 @@ final class GeneralTest extends TestCase
         $notes->setValue('new notes');
         $this->assertEquals('new notes', $notes->getValue());
 
-        $about->attachFile($this->mapRemoteFilePath(__DIR__ . '/../../web-fixtures/some_file.txt'));
+        $about->attachFile($this->mapRemoteFilePath(__DIR__.'/../../web-fixtures/some_file.txt'));
 
         $button = $page->findButton('Register');
         $this->assertNotNull($button);
@@ -386,21 +387,22 @@ OUT;
 
     /**
      * @dataProvider provideInvalidValues
-     *
-     * @param mixed $value
      */
-    public function testSetInvalidValueInField(string $field, $value): void
+    public function testSetInvalidValueInField(string $field, mixed $value): void
     {
         $this->getSession()->visit($this->pathTo('/advanced_form.html'));
 
         $webAssert = $this->getAssertSession();
 
-        $color = $webAssert->elementExists('named', array('id_or_name', $field));
+        $color = $webAssert->elementExists('named', ['id_or_name', $field]);
 
         $this->expectException(DriverException::class);
         $color->setValue($value);
     }
 
+    /**
+     * @return iterable<array{string, mixed}>
+     */
     public static function provideInvalidValues(): iterable
     {
         $trueValue = ['true', true];

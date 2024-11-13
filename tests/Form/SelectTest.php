@@ -68,8 +68,6 @@ OUT;
 
     /**
      * @dataProvider elementSelectedStateCheckDataProvider
-     *
-     * @return void
      */
     public function testElementSelectedStateCheck(string $selectName, string $optionValue, string $optionText): void
     {
@@ -85,6 +83,9 @@ OUT;
         $this->assertTrue($option->isSelected());
     }
 
+    /**
+     * @return iterable<array{0:string, 1:string, 2:string}>
+     */
     public static function elementSelectedStateCheckDataProvider(): iterable
     {
         return [
@@ -126,6 +127,9 @@ OUT;
         $select->setValue($value);
     }
 
+    /**
+     * @return iterable<array{bool}>
+     */
     public static function provideBooleanValues(): iterable
     {
         yield [true];
@@ -134,8 +138,6 @@ OUT;
 
     /**
      * @see https://github.com/Behat/Mink/issues/193
-     *
-     * @return void
      */
     public function testOptionWithoutValue(): void
     {
@@ -154,8 +156,6 @@ OUT;
 
     /**
      * @see https://github.com/Behat/Mink/issues/131
-     *
-     * @return void
      */
     public function testAccentuatedOption(): void
     {

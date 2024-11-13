@@ -4,7 +4,6 @@ namespace Behat\Mink\Tests\Driver\Basic;
 
 use Behat\Mink\Driver\CoreDriver;
 use Behat\Mink\Tests\Driver\TestCase;
-use Behat\Mink\Driver\CoreDriver;
 
 /**
  * This testcase ensures that the driver implementation follows recommended practices for drivers.
@@ -20,8 +19,6 @@ final class BestPracticesTest extends TestCase
 
     /**
      * @depends testExtendsCoreDriver
-     *
-     * @return void
      */
     public function testImplementFindXpath(): void
     {
@@ -34,8 +31,6 @@ final class BestPracticesTest extends TestCase
 
     /**
      * @dataProvider provideRequiredMethods
-     *
-     * @return void
      */
     public function testImplementBasicApi(string $method): void
     {
@@ -44,18 +39,19 @@ final class BestPracticesTest extends TestCase
         $this->assertImplementMethod($method, $driver, 'The driver is unusable when this method is not implemented.');
     }
 
-    public function provideRequiredMethods(): array
+    /**
+     * @return \Generator<array{0: string}>
+     */
+    public function provideRequiredMethods(): \Generator
     {
-        return [
-            ['start'],
-            ['isStarted'],
-            ['stop'],
-            ['reset'],
-            ['visit'],
-            ['getCurrentUrl'],
-            ['getContent'],
-            ['click'],
-        ];
+        yield ['start'];
+        yield ['isStarted'];
+        yield ['stop'];
+        yield ['reset'];
+        yield ['visit'];
+        yield ['getCurrentUrl'];
+        yield ['getContent'];
+        yield ['click'];
     }
 
     private function assertImplementMethod(string $method, \Behat\Mink\Driver\DriverInterface $object, string $reason = ''): void
@@ -66,7 +62,7 @@ final class BestPracticesTest extends TestCase
         $message = sprintf('The driver should implement the `%s` method.', $method);
 
         if ('' !== $reason) {
-            $message .= ' ' . $reason;
+            $message .= ' '.$reason;
         }
 
         $this->assertNotSame(CoreDriver::class, $refMethod->getDeclaringClass()->name, $message);
@@ -80,7 +76,7 @@ final class BestPracticesTest extends TestCase
         $message = sprintf('The driver should not implement the `%s` method.', $method);
 
         if ('' !== $reason) {
-            $message .= ' ' . $reason;
+            $message .= ' '.$reason;
         }
 
         $this->assertSame(CoreDriver::class, $refMethod->getDeclaringClass()->name, $message);

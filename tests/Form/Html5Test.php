@@ -190,7 +190,7 @@ OUT;
 
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $this->assertEquals(
-                $this->pathTo('advanced_form_post.php') . '?first_name=Jimmy&last_name=Jones',
+                $this->pathTo('advanced_form_post.php').'?first_name=Jimmy&last_name=Jones',
                 $this->getSession()->getCurrentUrl()
             );
         }
@@ -198,10 +198,8 @@ OUT;
 
     /**
      * @dataProvider provideInvalidValues
-     *
-     * @param mixed $value
      */
-    public function testSetInvalidValueInField(string $field, $value): void
+    public function testSetInvalidValueInField(string $field, mixed $value): void
     {
         $this->getSession()->visit($this->pathTo('/html5_types.html'));
 
@@ -213,6 +211,9 @@ OUT;
         $color->setValue($value);
     }
 
+    /**
+     * @return iterable<array{string, mixed}>
+     */
     public static function provideInvalidValues(): iterable
     {
         $trueValue = ['true', true];

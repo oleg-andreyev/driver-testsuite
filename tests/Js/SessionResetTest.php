@@ -37,12 +37,13 @@ final class SessionResetTest extends TestCase
         $this->assertEquals($expectedInitialWindowName, $actualInitialWindowName, 'Not inside an initial window.');
     }
 
-    public static function initialWindowNameDataProvider(): array
+    /**
+     * @return \Generator<array{0: string|null}>
+     */
+    public static function initialWindowNameDataProvider(): \Generator
     {
-        return array(
-            'no name' => array(null),
-            'non-empty name' => array('initial-window'),
-        );
+        yield 'no name' => [null];
+        yield 'non-empty name' => ['initial-window'];
     }
 
     /**

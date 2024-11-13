@@ -13,8 +13,6 @@ final class ChangeEventTest extends TestCase
      * 'change' event should be fired after selecting an <option> in a <select>.
      *
      * TODO check whether this test is redundant with other change event tests.
-     *
-     * @return void
      */
     public function testIssue255(): void
     {
@@ -40,12 +38,10 @@ final class ChangeEventTest extends TestCase
      * @dataProvider setValueChangeEventDataProvider
      *
      * @group change-event-detector
-     *
-     * @return void
      */
     public function testSetValueChangeEvent(string $elementId, string $valueForEmpty, string $valueForFilled = ''): void
     {
-        if ($elementId === 'the-file') {
+        if ('the-file' === $elementId) {
             $valueForEmpty = $this->mapRemoteFilePath($valueForEmpty);
             $valueForFilled = $this->mapRemoteFilePath($valueForFilled);
         }
@@ -54,7 +50,7 @@ final class ChangeEventTest extends TestCase
         $page = $this->getSession()->getPage();
 
         $input = $this->findById($elementId);
-        $this->assertNull($page->findById($elementId . '-result'));
+        $this->assertNull($page->findById($elementId.'-result'));
 
         // Verify setting value, when control is initially empty.
         $input->setValue($valueForEmpty);
@@ -68,28 +64,27 @@ final class ChangeEventTest extends TestCase
         }
     }
 
-    public static function setValueChangeEventDataProvider(): iterable
+    /**
+     * @return \Generator<array{0:string, 1:string, 2?:string}>
+     */
+    public static function setValueChangeEventDataProvider(): \Generator
     {
-        $file1 = __DIR__ . '/../../web-fixtures/file1.txt';
-        $file2 = __DIR__ . '/../../web-fixtures/file2.txt';
+        $file1 = __DIR__.'/../../web-fixtures/file1.txt';
+        $file2 = __DIR__.'/../../web-fixtures/file2.txt';
 
-        return [
-            'input default' => ['the-input-default', 'from empty', 'from existing'],
-            'input text' => ['the-input-text', 'from empty', 'from existing'],
-            'input email' => ['the-email', 'from empty', 'from existing'],
-            'textarea' => ['the-textarea', 'from empty', 'from existing'],
-            'file' => ['the-file', $file1, $file2],
-            'select' => ['the-select', '30'],
-            'radio' => ['the-radio-m', 'm'],
-        ];
+        yield 'input default' => ['the-input-default', 'from empty', 'from existing'];
+        yield 'input text' => ['the-input-text', 'from empty', 'from existing'];
+        yield 'input email' => ['the-email', 'from empty', 'from existing'];
+        yield 'textarea' => ['the-textarea', 'from empty', 'from existing'];
+        yield 'file' => ['the-file', $file1, $file2];
+        yield 'select' => ['the-select', '30'];
+        yield 'radio' => ['the-radio-m', 'm'];
     }
 
     /**
      * @dataProvider selectOptionChangeEventDataProvider
      *
      * @group change-event-detector
-     *
-     * @return void
      */
     public function testSelectOptionChangeEvent(string $elementId, string $elementValue): void
     {
@@ -97,12 +92,15 @@ final class ChangeEventTest extends TestCase
         $page = $this->getSession()->getPage();
 
         $input = $this->findById($elementId);
-        $this->assertNull($page->findById($elementId . '-result'));
+        $this->assertNull($page->findById($elementId.'-result'));
 
         $input->selectOption($elementValue);
         $this->assertElementChangeCount($elementId);
     }
 
+    /**
+     * @return iterable<array{string, string}>
+     */
     public static function selectOptionChangeEventDataProvider(): iterable
     {
         return [
@@ -115,8 +113,6 @@ final class ChangeEventTest extends TestCase
      * @dataProvider checkboxTestWayDataProvider
      *
      * @group change-event-detector
-     *
-     * @return void
      */
     public function testCheckChangeEvent(bool $useSetValue): void
     {
@@ -139,8 +135,6 @@ final class ChangeEventTest extends TestCase
      * @dataProvider checkboxTestWayDataProvider
      *
      * @group change-event-detector
-     *
-     * @return void
      */
     public function testUncheckChangeEvent(bool $useSetValue): void
     {
@@ -159,6 +153,9 @@ final class ChangeEventTest extends TestCase
         $this->assertElementChangeCount('the-checked-checkbox');
     }
 
+    /**
+     * @return iterable<array{bool}>
+     */
     public static function checkboxTestWayDataProvider(): iterable
     {
         return [
@@ -169,7 +166,7 @@ final class ChangeEventTest extends TestCase
 
     private function assertElementChangeCount(string $elementId, string $message = ''): void
     {
-        $counterElement = $this->getSession()->getPage()->findById($elementId . '-result');
+        $counterElement = $this->getSession()->getPage()->findById($elementId.'-result');
         $actualCount = null === $counterElement ? 0 : $counterElement->getText();
 
         $this->assertEquals('1', $actualCount, $message);

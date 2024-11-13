@@ -8,8 +8,6 @@ final class JavascriptEvaluationTest extends TestCase
 {
     /**
      * Tests, that `wait` method returns check result after exit.
-     *
-     * @return void
      */
     public function testWaitReturnValue(): void
     {
@@ -44,8 +42,6 @@ final class JavascriptEvaluationTest extends TestCase
 
     /**
      * @dataProvider provideExecutedScript
-     *
-     * @return void
      */
     public function testExecuteScript(string $script): void
     {
@@ -59,22 +55,18 @@ final class JavascriptEvaluationTest extends TestCase
         $this->assertEquals('Hello world', $heading->getText());
     }
 
-    public static function provideExecutedScript(): iterable
+    public static function provideExecutedScript(): \Generator
     {
-        return [
-            ['document.querySelector("h1").textContent = "Hello world"'],
-            ['document.querySelector("h1").textContent = "Hello world";'],
-            ['function () {document.querySelector("h1").textContent = "Hello world";}()'],
-            ['function () {document.querySelector("h1").textContent = "Hello world";}();'],
-            ['(function () {document.querySelector("h1").textContent = "Hello world";})()'],
-            ['(function () {document.querySelector("h1").textContent = "Hello world";})();'],
-        ];
+        yield ['document.querySelector("h1").textContent = "Hello world"'];
+        yield ['document.querySelector("h1").textContent = "Hello world";'];
+        yield ['function () {document.querySelector("h1").textContent = "Hello world";}()'];
+        yield ['function () {document.querySelector("h1").textContent = "Hello world";}();'];
+        yield ['(function () {document.querySelector("h1").textContent = "Hello world";})()'];
+        yield ['(function () {document.querySelector("h1").textContent = "Hello world";})();'];
     }
 
     /**
      * @dataProvider provideEvaluatedScript
-     *
-     * @return void
      */
     public function testEvaluateJavascript(string $script): void
     {
@@ -83,17 +75,18 @@ final class JavascriptEvaluationTest extends TestCase
         $this->assertSame(2, $this->getSession()->evaluateScript($script));
     }
 
+    /**
+     * @return iterable<array{string}>
+     */
     public static function provideEvaluatedScript(): iterable
     {
-        return [
-            ['1 + 1'],
-            ['1 + 1;'],
-            ['return 1 + 1'],
-            ['return 1 + 1;'],
-            ['function () {return 1+1;}()'],
-            ['(function () {return 1+1;})()'],
-            ['return function () { return 1+1;}()'],
-            ['return (function () {return 1+1;})()'],
-        ];
+        yield ['1 + 1'];
+        yield ['1 + 1;'];
+        yield ['return 1 + 1'];
+        yield ['return 1 + 1;'];
+        yield ['function () {return 1+1;}()'];
+        yield ['(function () {return 1+1;})()'];
+        yield ['return function () { return 1+1;}()'];
+        yield ['return (function () {return 1+1;})()'];
     }
 }

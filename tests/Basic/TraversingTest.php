@@ -11,8 +11,6 @@ final class TraversingTest extends TestCase
      * find by label.
      *
      * @group issue211
-     *
-     * @return void
      */
     public function testIssue211(): void
     {
@@ -56,7 +54,7 @@ final class TraversingTest extends TestCase
         $this->assertNotNull($element);
         $this->assertEquals('some very interesting text', $element->getText());
         $this->assertEquals(
-            "\n            some <div>very\n            </div>\n" .
+            "\n            some <div>very\n            </div>\n".
             "<em>interesting</em>      text\n        ",
             $element->getHtml()
         );

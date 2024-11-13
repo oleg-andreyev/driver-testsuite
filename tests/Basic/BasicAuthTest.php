@@ -9,8 +9,6 @@ final class BasicAuthTest extends TestCase
 {
     /**
      * @dataProvider setBasicAuthDataProvider
-     *
-     * @return void
      */
     public function testSetBasicAuth(string $user, string $pass, string $pageText): void
     {
@@ -32,7 +30,7 @@ final class BasicAuthTest extends TestCase
 
     public function testBasicAuthInUrl(): void
     {
-        if (getenv('BROWSER_NAME') === 'safari') {
+        if ('safari' === getenv('BROWSER_NAME')) {
             $this->markTestSkipped('\Behat\Mink\Tests\Driver\Basic\BasicAuthTest::testBasicAuthInUrl is skipped due to Safari hangs');
         }
 
@@ -82,7 +80,7 @@ final class BasicAuthTest extends TestCase
         $url = str_replace('://', '://mink-user:wrong@', $url);
         $session->visit($url);
 
-        if (getenv('BROWSER_NAME') === 'firefox') {
+        if ('firefox' === getenv('BROWSER_NAME')) {
             $this->expectException(UnexpectedAlertOpenException::class);
             $this->expectExceptionMessage('Dismissed user prompt dialog: This site is asking you to sign in.');
         }

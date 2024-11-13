@@ -7,12 +7,12 @@ use Behat\Mink\Exception\ExpectationException;
 use Behat\Mink\KeyModifier;
 use Behat\Mink\Tests\Driver\TestCase;
 use Facebook\WebDriver\WebDriverKeys;
-use Generator;
 
 final class EventsTest extends TestCase
 {
     /**
      * @group mouse-events
+     *
      * @throws ElementNotFoundException
      */
     public function testClick(): void
@@ -27,6 +27,7 @@ final class EventsTest extends TestCase
 
     /**
      * @group mouse-events
+     *
      * @throws ElementNotFoundException
      */
     public function testDoubleClick(): void
@@ -38,7 +39,7 @@ final class EventsTest extends TestCase
         // usleep is required for firefox
         // firefox does not wait for page load as chrome as we may get unbound event and dblclick will not be performed
         // especially if session is not fresh
-        usleep(1000000); //1e6
+        usleep(1000000); // 1e6
 
         $clicker->doubleClick();
         $this->assertEquals('double clicked', $clicker->getText());
@@ -46,6 +47,7 @@ final class EventsTest extends TestCase
 
     /**
      * @group mouse-events
+     *
      * @throws ElementNotFoundException
      */
     public function testRightClick(): void
@@ -60,6 +62,7 @@ final class EventsTest extends TestCase
 
     /**
      * @group mouse-events
+     *
      * @throws ElementNotFoundException|ExpectationException
      */
     public function testFocus(): void
@@ -78,12 +81,13 @@ final class EventsTest extends TestCase
         // checking that we're on same page
         $this->getAssertSession()->addressEquals('/js_test.html');
         $this->assertEquals('focused', $focusableAnchor->getText());
-
     }
 
     /**
      * @group   mouse-events
+     *
      * @depends testFocus
+     *
      * @throws ElementNotFoundException
      */
     public function testBlur(): void
@@ -100,6 +104,7 @@ final class EventsTest extends TestCase
 
     /**
      * @group mouse-events
+     *
      * @throws ElementNotFoundException
      */
     public function testMouseOver(): void
@@ -113,12 +118,13 @@ final class EventsTest extends TestCase
     }
 
     /**
-     * @param KeyModifier::*|null $modifier
+     * @param KeyModifier::* $modifier
      *
      * @dataProvider provideKeyboardEventsModifiers
+     *
      * @throws ElementNotFoundException
      */
-    public function testKeyboardEvents(?string $modifier, string $eventProperties): void
+    public function testKeyboardEvents(string $modifier, string $eventProperties): void
     {
         $this->getSession()->visit($this->pathTo('/keyboard_test.html'));
         $webAssert = $this->getAssertSession();
@@ -132,28 +138,31 @@ final class EventsTest extends TestCase
         $text = $event->getHtml();
 
         $this->assertEquals(
-            str_replace("\n\n", "\n", $expected),
+            str_replace("\n\n", "\n", $text),
             $text
         );
     }
 
+    /**
+     * @return iterable<array{WebDriverKeys::*, string}>
+     */
     public static function provideKeyboardEventsModifiers(): iterable
     {
         yield [
             WebDriverKeys::LEFT_ALT,
-            "Key \"Alt\" pressed  [event: keydown]\nKey \"Alt\" released  [event: keyup]\n"
+            "Key \"Alt\" pressed  [event: keydown]\nKey \"Alt\" released  [event: keyup]\n",
         ];
         yield [
             WebDriverKeys::LEFT_SHIFT,
-            "Key \"Shift\" pressed  [event: keydown]\nKey \"Shift\" released  [event: keyup]\n"
+            "Key \"Shift\" pressed  [event: keydown]\nKey \"Shift\" released  [event: keyup]\n",
         ];
         yield [
             WebDriverKeys::LEFT_CONTROL,
-            "Key \"Control\" pressed  [event: keydown]\nKey \"Control\" released  [event: keyup]\n"
+            "Key \"Control\" pressed  [event: keydown]\nKey \"Control\" released  [event: keyup]\n",
         ];
         yield [
             WebDriverKeys::META,
-            "Key \"Meta\" pressed  [event: keydown]\nKey \"Meta\" released  [event: keyup]\n"
+            "Key \"Meta\" pressed  [event: keydown]\nKey \"Meta\" released  [event: keyup]\n",
         ];
     }
 }

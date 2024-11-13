@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Behat\Mink\Tests\Driver;
 
 use Behat\Mink\Exception\UnsupportedDriverActionException;

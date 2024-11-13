@@ -41,8 +41,6 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @return AbstractConfig
-     *
      * @throws \UnexpectedValueException if the global driver_config_factory returns an invalid object
      */
     private static function getConfig(): AbstractConfig
@@ -72,6 +70,7 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * @after
+     *
      * @return void
      */
     protected function resetSessions()
@@ -111,8 +110,6 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * @param string $id
-     *
-     * @return NodeElement
      */
     protected function findById($id): NodeElement
     {
@@ -124,8 +121,6 @@ abstract class TestCase extends BaseTestCase
      *
      * This driver is not associated to a session. It is meant to be used for tests on the driver
      * implementation itself rather than test using the Mink API.
-     *
-     * @return DriverInterface
      */
     protected function createDriver(): DriverInterface
     {
@@ -157,7 +152,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function pathTo($path)
     {
-        return rtrim(self::getConfig()->getWebFixturesUrl(), '/') . '/' . ltrim($path, '/');
+        return rtrim(self::getConfig()->getWebFixturesUrl(), '/').'/'.ltrim($path, '/');
     }
 
     /**
