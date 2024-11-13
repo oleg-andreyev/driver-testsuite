@@ -59,7 +59,7 @@ final class BasicAuthTest extends TestCase
 
         if (getenv('BROWSER_NAME') === 'firefox') {
             $this->expectException(UnexpectedAlertOpenException::class);
-            $this->expectExceptionMessage('Dismissed user prompt dialog: This site is asking you to sign in.');
+            $this->expectExceptionMessage('Unexpected promptUserAndPass dialog detected. Performed handler "dismiss"');
         }
 
         // chrome can access dom when alert/confirm/basic auth
