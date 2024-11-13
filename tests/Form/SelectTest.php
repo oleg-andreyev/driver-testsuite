@@ -51,17 +51,17 @@ final class SelectTest extends TestCase
         usleep(500000);
 
         $out = <<<'OUT'
-  agreement = `off`,
-  select_first_option_is_selected_by_default = `1`,
-  select_multiple_numbers = array(
-    0 = `1`,
-    1 = `3`,
-  ),
-  select_multiple_values = array(
-    0 = `2`,
-  ),
-  select_number = `30`,
-OUT;
+              agreement = `off`,
+              select_first_option_is_selected_by_default = `1`,
+              select_multiple_numbers = array(
+                0 = `1`,
+                1 = `3`,
+              ),
+              select_multiple_values = array(
+                0 = `2`,
+              ),
+              select_number = `30`,
+            OUT;
         $out = str_replace(["\r", "\r\n", "\n"], \PHP_EOL, $out);
         $this->assertStringContainsString($out, $page->getContent());
     }

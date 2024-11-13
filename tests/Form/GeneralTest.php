@@ -220,19 +220,19 @@ final class GeneralTest extends TestCase
 
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $out = <<<'OUT'
-array(
-  agreement = `on`,
-  email = `ever.zet@gmail.com`,
-  first_name = `Foo item`,
-  last_name = `Bar`,
-  notes = `new notes`,
-  select_number = `30`,
-  sex = `m`,
-  submit = `Register`,
-)
-some_file.txt
-1 uploaded file
-OUT;
+                array(
+                  agreement = `on`,
+                  email = `ever.zet@gmail.com`,
+                  first_name = `Foo item`,
+                  last_name = `Bar`,
+                  notes = `new notes`,
+                  select_number = `30`,
+                  sex = `m`,
+                  submit = `Register`,
+                )
+                some_file.txt
+                1 uploaded file
+                OUT;
             $out = str_replace(["\r", "\r\n", "\n"], \PHP_EOL, $out);
             $this->assertStringContainsString($out, $page->getContent());
         }
@@ -266,17 +266,17 @@ OUT;
 
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $out = <<<'OUT'
-  first_name = `Foo &quot;item&quot;`,
-  last_name = `Bar`,
-OUT;
+                  first_name = `Foo &quot;item&quot;`,
+                  last_name = `Bar`,
+                OUT;
             // Escaping of double quotes are optional in HTML text nodes. Even though our backend escapes
             // the quote in the HTML when returning it, browsers may apply only the minimal escaping in
             // the content they expose to Selenium depending of how they build it (they might serialize
             // their DOM again rathet than returning the raw HTTP response content).
             $minEscapedOut = <<<'OUT'
-  first_name = `Foo "item"`,
-  last_name = `Bar`,
-OUT;
+                  first_name = `Foo "item"`,
+                  last_name = `Bar`,
+                OUT;
 
             $out = str_replace(["\r", "\r\n", "\n"], \PHP_EOL, $out);
             $minEscapedOut = str_replace(["\r", "\r\n", "\n"], \PHP_EOL, $minEscapedOut);
@@ -325,12 +325,12 @@ OUT;
         usleep(500000);
 
         $out = <<<'OUT'
-  tags = array(
-    0 = `tag2`,
-    1 = `one`,
-    2 = `tag3`,
-  ),
-OUT;
+              tags = array(
+                0 = `tag2`,
+                1 = `one`,
+                2 = `tag3`,
+              ),
+            OUT;
         $out = str_replace(["\r", "\r\n", "\n"], \PHP_EOL, $out);
         $this->assertStringContainsString($out, $page->getContent());
     }

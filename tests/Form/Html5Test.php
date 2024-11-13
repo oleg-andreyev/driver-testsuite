@@ -30,9 +30,9 @@ final class Html5Test extends TestCase
 
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $out = <<<'OUT'
-  first_name = `John`,
-  last_name = `Doe`,
-OUT;
+                  first_name = `John`,
+                  last_name = `Doe`,
+                OUT;
             $out = str_replace(["\r", "\r\n", "\n"], \PHP_EOL, $out);
             $this->assertStringContainsString($out, $page->getContent());
             $this->assertStringNotContainsString('other_field', $page->getContent());
@@ -62,8 +62,8 @@ OUT;
         usleep(500000);
 
         $out = <<<'OUT'
-  sex = `m`,
-OUT;
+              sex = `m`,
+            OUT;
         $this->assertStringContainsString($out, $page->getContent());
     }
 
@@ -87,10 +87,10 @@ OUT;
 
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $out = <<<'OUT'
-  first_name = `John`,
-  last_name = `Doe`,
-  submit_button = `test`,
-OUT;
+                  first_name = `John`,
+                  last_name = `Doe`,
+                  submit_button = `test`,
+                OUT;
             $out = str_replace(["\r", "\r\n", "\n"], \PHP_EOL, $out);
             $this->assertStringContainsString($out, $page->getContent());
         }
@@ -111,8 +111,8 @@ OUT;
 
         if ($this->safePageWait(5000, 'document.getElementsByTagName("title") !== null')) {
             $out = <<<'OUT'
-  other_field = `hello`,
-OUT;
+                  other_field = `hello`,
+                OUT;
             $this->assertStringContainsString($out, $page->getContent());
             $this->assertStringNotContainsString('first_name', $page->getContent());
         }
@@ -140,19 +140,19 @@ OUT;
         $this->assertEquals($this->pathTo('/advanced_form_post.php'), $this->getSession()->getCurrentUrl());
 
         $out = <<<'OUT'
-array(
-  agreement = `off`,
-  color = `#ff00aa`,
-  date = `1111-11-11`,
-  email = `mink@example.org`,
-  number = `6`,
-  search = `mink`,
-  submit_button = `Submit`,
-  time = `14:12`,
-  url = `https://mink.behat.org/`,
-)
-no file
-OUT;
+            array(
+              agreement = `off`,
+              color = `#ff00aa`,
+              date = `1111-11-11`,
+              email = `mink@example.org`,
+              number = `6`,
+              search = `mink`,
+              submit_button = `Submit`,
+              time = `14:12`,
+              url = `https://mink.behat.org/`,
+            )
+            no file
+            OUT;
         $out = str_replace(["\r", "\r\n", "\n"], \PHP_EOL, $out);
         $this->assertStringContainsString($out, $page->getContent());
     }

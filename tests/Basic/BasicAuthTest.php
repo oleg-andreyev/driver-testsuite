@@ -55,7 +55,7 @@ final class BasicAuthTest extends TestCase
         $url = str_replace('://', '://mink-user:wrong@', $url);
         $session->visit($url);
 
-        if (getenv('BROWSER_NAME') === 'firefox') {
+        if ('firefox' === getenv('BROWSER_NAME')) {
             $this->expectException(UnexpectedAlertOpenException::class);
             $this->expectExceptionMessage('Unexpected promptUserAndPass dialog detected. Performed handler "dismiss"');
         }

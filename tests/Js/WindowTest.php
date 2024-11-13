@@ -77,21 +77,21 @@ final class WindowTest extends TestCase
         $session->wait(1000, 'false');
 
         $jsWindowSizeScript = <<<"JS"
-        (function () {
-            var check = function (actualWidth, actualHeight) {
-                    return Math.abs(actualWidth - $expectedWidth) <= 100
-                        && Math.abs(actualHeight - $expectedHeight) <= 100;
-                    },
-                htmlElem = document.documentElement,
-                bodyElem = document.getElementsByTagName('body')[0];
+                    (function () {
+                        var check = function (actualWidth, actualHeight) {
+                                return Math.abs(actualWidth - $expectedWidth) <= 100
+                                    && Math.abs(actualHeight - $expectedHeight) <= 100;
+                                },
+                            htmlElem = document.documentElement,
+                            bodyElem = document.getElementsByTagName('body')[0];
 
-            return check(window.outerWidth, window.outerHeight)
-                || check(
-                    window.innerWidth || htmlElem.clientWidth || bodyElem.clientWidth,
-                    window.innerHeight || htmlElem.clientHeight || bodyElem.clientHeight
-                );
-        })();
-JS;
+                        return check(window.outerWidth, window.outerHeight)
+                            || check(
+                                window.innerWidth || htmlElem.clientWidth || bodyElem.clientWidth,
+                                window.innerHeight || htmlElem.clientHeight || bodyElem.clientHeight
+                            );
+                    })();
+            JS;
         $this->assertTrue($session->evaluateScript($jsWindowSizeScript));
     }
 
