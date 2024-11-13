@@ -13,11 +13,8 @@ final class BasicAuthTest extends TestCase
     public function testSetBasicAuth(string $user, string $pass, string $pageText): void
     {
         $session = $this->getSession();
-
         $session->setBasicAuth($user, $pass);
-
         $session->visit($this->pathTo('/basic_auth.php'));
-
         $this->assertStringContainsString($pageText, $session->getPage()->getContent());
     }
 
@@ -26,6 +23,17 @@ final class BasicAuthTest extends TestCase
     {
         yield ['mink-user', 'mink-password', 'is authenticated'];
         yield ['', '', 'is not authenticated'];
+    }
+
+    public function testResetBasicAuth(): void
+    {
+        $session = $this->getSession();
+        $session->setBasicAuth('mink-user', 'mink-password');
+        $session->visit($this->pathTo('/basic_auth.php'));
+        $this->assertStringContainsString('is authenticated', $session->getPage()->getContent());
+        $session->setBasicAuth(false);
+        $session->visit($this->pathTo('/headers.php'));
+        $this->assertStringNotContainsString('PHP_AUTH_USER', $session->getPage()->getContent());
     }
 
     public function testBasicAuthInUrl(): void
@@ -41,46 +49,13 @@ final class BasicAuthTest extends TestCase
         $session->visit($url);
         $this->assertStringContainsString('is authenticated', $session->getPage()->getContent());
 
-        $url = $this->pathTo('/basic_auth.php');
-        $url = str_replace('://', '://mink-user:wrong@', $url);
-        $session->visit($url);
-        $this->assertStringContainsString('is not authenticated', $session->getPage()->getContent());
-    }
-
-    public function testResetBasicAuth(): void
-    {
-        $session = $this->getSession();
-
-        $session->setBasicAuth('mink-user', 'mink-password');
-
-        $session->visit($this->pathTo('/basic_auth.php'));
-
-        $this->assertStringContainsString('is authenticated', $session->getPage()->getContent());
-
-        $session->setBasicAuth(false);
-
-        $session->visit($this->pathTo('/headers.php'));
-
-        $this->assertStringNotContainsString('PHP_AUTH_USER', $session->getPage()->getContent());
-    }
-
-    public function testResetWithBasicAuth(): void
-    {
-        $session = $this->getSession();
-
-        $session->setBasicAuth('mink-user', 'mink-password');
-
-        $session->visit($this->pathTo('/basic_auth.php'));
-
-        $this->assertStringContainsString('is authenticated', $session->getPage()->getContent());
-
         $session->stop();
 
         $url = $this->pathTo('/basic_auth.php');
         $url = str_replace('://', '://mink-user:wrong@', $url);
         $session->visit($url);
 
-        if ('firefox' === getenv('BROWSER_NAME')) {
+        if (getenv('BROWSER_NAME') === 'firefox') {
             $this->expectException(UnexpectedAlertOpenException::class);
             $this->expectExceptionMessage('Dismissed user prompt dialog: This site is asking you to sign in.');
         }
